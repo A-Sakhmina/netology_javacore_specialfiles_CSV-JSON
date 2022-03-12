@@ -40,7 +40,6 @@ public class Main {
             CsvToBean<Employee> csv = new CsvToBeanBuilder<Employee>(csvReader).withMappingStrategy(strategy).build();
             // распарсить CSV файл в список объектов
             List<Employee> staff = csv.parse();
-            staff.forEach(System.out::println);
             return staff;
         } catch (IOException e) {
             e.printStackTrace();
@@ -49,12 +48,11 @@ public class Main {
     }
 
     public static String listToJson(List<Employee> list) {
-        GsonBuilder builder = new GsonBuilder();
+        GsonBuilder builder = new GsonBuilder().setPrettyPrinting();
         Gson gson = builder.create();
         Type listType = new TypeToken<List<Employee>>() {
         }.getType();
         String json = gson.toJson(list, listType);
-
         return json;
     }
 
